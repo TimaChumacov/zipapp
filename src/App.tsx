@@ -2,20 +2,9 @@
 import React from 'react';
 import './App.css';
 
-const AWS = require('aws-sdk')
+//var RNFetchBlob = require('rn-fetch-blob').default
 
 // Configure client for use with Spaces
-const spacesEndpoint = new AWS.Endpoint('fra1.digitaloceanspaces.com');
-const s3 = new AWS.S3({
-    endpoint: spacesEndpoint,
-    accessKeyId: '4TOXS2GRTE67RW2BB73Y',
-    secretAccessKey: 'DhQc2CHaxeE80C7VqOgghMa3a6fuk2fJHNZ8/0JuywA'
-});
-
-var params = {
-  Bucket: "chumakovz-test-1", 
-  Key: "calculator.zip"
- };
 
 export default class App extends React.Component {
   constructor(props: any) {
@@ -23,23 +12,31 @@ export default class App extends React.Component {
     this.state = { 
        client: ""
     };
-    this.test = this.test.bind(this);
+    this.fillTable = this.fillTable.bind(this)
   }
-  
-  test = () => 
+
+  fillTable = () => // fills this.state.dictionary
   {
-    console.log("test")
-    s3.getObject(params, function(err: any, data: any) {
-      if (err) console.log(err, err.stack); // an error occurred
-      else     console.log(data);           // successful response
-    });
+    /*const fetchDict = async () => //async function coz fetching data takes some time
+    {
+      let res = await fetch('https://chumakovz-test-1.fra1.digitaloceanspaces.com/test.png')
+      const dict = await res.json()
+      return dict
+    }
+
+    fetchDict() //fetchDict is still an async promise so i have to either resolve it or catch an error
+      .then(dict => console.log(dict))
+      .catch(err => console.log(err.message))
+  */
+    
   }
 
   render () 
   {
     return (
     <div className="App">
-      <button onClick={this.test}>test</button>
+      <img/>
+      <button onClick={this.fillTable}> Test </button>
     </div>
   );
   }
